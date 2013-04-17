@@ -1355,7 +1355,7 @@ static int SG_Read_Actual(unsigned long chid, void *pvAddress, int iLength, void
 		strcpy(sChidText2, SG_GetChidText(chid));
 		if (!qbSGReadIsTestOnly)
 		{
-			Com_Error(ERR_DROP, "Loaded chunk ID (%s) does not match requested chunk ID (%s)", sChidText1, sChidText2);
+			Com_Printf( "Loaded chunk ID (%s) does not match requested chunk ID (%s)", sChidText1, sChidText2);
 		}
 		return 0;
 	}
@@ -1368,7 +1368,7 @@ static int SG_Read_Actual(unsigned long chid, void *pvAddress, int iLength, void
 		{
 			if (!qbSGReadIsTestOnly)
 			{
-				Com_Error(ERR_DROP, "Loaded chunk (%s) has different length than requested", SG_GetChidText(chid));
+				Com_Printf( "Loaded chunk (%s) has different length than requested", SG_GetChidText(chid));
 			}
 			return 0;
 		}
@@ -1436,7 +1436,7 @@ static int SG_Read_Actual(unsigned long chid, void *pvAddress, int iLength, void
 	{
 		if (!qbSGReadIsTestOnly)
 		{
-			Com_Error(ERR_DROP, "Failed checksum check for chunk", SG_GetChidText(chid));
+			Com_Printf( "Failed checksum check for chunk", SG_GetChidText(chid));
 		}
 		else
 		{
@@ -1454,7 +1454,7 @@ static int SG_Read_Actual(unsigned long chid, void *pvAddress, int iLength, void
 	{
 		if (!qbSGReadIsTestOnly)
 		{
-			Com_Error(ERR_DROP, "Bad savegame magic for chunk %s", SG_GetChidText(chid));
+			Com_Printf( "Bad savegame magic for chunk %s", SG_GetChidText(chid));
 		}
 		else
 		{
@@ -1472,7 +1472,7 @@ static int SG_Read_Actual(unsigned long chid, void *pvAddress, int iLength, void
 	{
 		if (!qbSGReadIsTestOnly)
 		{
-			Com_Error(ERR_DROP, "Error during loading chunk %s", SG_GetChidText(chid));
+			Com_Printf( "Error during loading chunk %s", SG_GetChidText(chid));
 		}
 		else
 		{

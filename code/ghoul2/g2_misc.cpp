@@ -226,7 +226,7 @@ void R_TransformEachSurface( const mdxmSurface_t *surface, vec3_t scale, CMiniHe
 	TransformedVertsArray[surface->thisSurfaceIndex] = (int)TransformedVerts;
 	if (!TransformedVerts)
 	{
-		Com_Error(ERR_DROP, "Ran out of transform space for Ghoul2 Models. Adjust MiniHeapSize in SV_SpawnServer.\n");
+		Com_Printf( "Ran out of transform space for Ghoul2 Models. Adjust MiniHeapSize in SV_SpawnServer.\n");
 	}
 
 	// whip through and actually transform each vertex
@@ -405,7 +405,7 @@ void G2_TransformModel(CGhoul2Info_v &ghoul2, const int frameNum, vec3_t scale, 
 		ghoul2[i].mTransformedVertsArray = (int*)G2VertSpace->MiniHeapAlloc(g.currentModel->mdxm->numSurfaces * 4);
 		if (!g.mTransformedVertsArray)
 		{
-			Com_Error(ERR_DROP, "Ran out of transform space for Ghoul2 Models. Adjust MiniHeapSize in SV_SpawnServer.\n");
+			Com_Printf( "Ran out of transform space for Ghoul2 Models. Adjust MiniHeapSize in SV_SpawnServer.\n");
 		}
 
 		memset(g.mTransformedVertsArray, 0,(g.currentModel->mdxm->numSurfaces * 4)); 
@@ -1079,7 +1079,6 @@ void *G2_FindSurface(const model_s *mod, int index, int lod)
 {
 	assert(mod);
 	assert(mod->mdxm);
-
 	mdxmLOD_t * lodData;
 
 	// point at first lod list

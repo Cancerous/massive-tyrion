@@ -1276,7 +1276,7 @@ void G_SetG2PlayerModel( gentity_t * const ent, const char *modelName, const cha
 	if ( !G_SetG2PlayerModelInfo( ent, modelName, customSkin, surfOff, surfOn ) )
 	{//couldn't set g2 info, fall back to a mouse md3
 		NPC_ParseParms( "mouse", ent );
-		//Com_Error( ERR_DROP, "couldn't load playerModel %s!\n", va("models/players/%s/model.glm", modelName) );
+		//Com_Printf( "couldn't load playerModel %s!\n", va("models/players/%s/model.glm", modelName) );
 		Com_Printf( S_COLOR_RED"couldn't load playerModel %s!\n", va("models/players/%s/model.glm", modelName) );
 	}
 

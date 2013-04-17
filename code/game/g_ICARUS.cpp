@@ -89,6 +89,7 @@ int ICARUS_RunScript( gentity_t *ent, const char *name )
 
 	if ( ( ICARUS_entFilter == -1 ) || ( ICARUS_entFilter == ent->s.number ) )
 	{
+		Com_Printf( "icarus script error\n" );
 		Q3_DebugPrint( WL_VERBOSE, "%d Script %s executed by %s %s\n", level.time, (char *) name, ent->classname, ent->targetname );
 	}
 
@@ -113,7 +114,7 @@ void ICARUS_Init( void )
 
 	if ( iICARUS == NULL )
 	{
-		Com_Error( ERR_DROP, "Unable to initialize ICARUS instance\n" );
+		Com_Printf( "Unable to initialize ICARUS instance\n" );
 		return;
 	}
 }
@@ -225,7 +226,7 @@ bool ICARUS_ValidEnt( gentity_t *ent )
 	{
 		if VALIDSTRING( ent->behaviorSet[i] )
 		{
-			//Com_Printf( "WARNING: Entity %d (%s) has behaviorSet but no script_targetname -- using targetname\n", ent->s.number, ent->targetname );
+			Com_Printf( "WARNING: Entity %d (%s) has behaviorSet but no script_targetname -- using targetname\n", ent->s.number, ent->targetname );
 			ent->script_targetname = ent->targetname;
 			return true;
 		}

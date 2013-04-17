@@ -165,7 +165,7 @@ wavinfo_t GetWavinfo (const char *name, byte *wav, int wavlength)
 	if (info.samples)
 	{
 		if (samples < info.samples)
-			Com_Error (ERR_DROP, "Sound %s has a bad loop length", name);
+			Com_Printf( "Sound %s has a bad loop length", name);
 	}
 	else
 		info.samples = samples;
@@ -375,7 +375,7 @@ void R_CheckMP3s( const char *psDir )
 							iActualUnpackedSize = MP3_UnpackRawPCM( sFilename, pbData, iSize, pbUnpackBuffer );
 							if (iActualUnpackedSize != iRawPCMDataSize)
 							{
-								Com_Error(ERR_DROP, "******* Whoah! MP3 %s unpacked to %d bytes, but size calc said %d!\n",sFilename,iActualUnpackedSize,iRawPCMDataSize);
+								Com_Printf( "******* Whoah! MP3 %s unpacked to %d bytes, but size calc said %d!\n",sFilename,iActualUnpackedSize,iRawPCMDataSize);
 							}
 						
 							// fake up a WAV structure so I can use the other post-load sound code such as volume calc for lip-synching
@@ -468,7 +468,7 @@ void R_CheckMP3s( const char *psDir )
 					}
 					else
 					{
-						Com_Error(ERR_DROP, "******* This MP3 should be deleted: \"%s\"\n",sFilename);
+						Com_Printf( "******* This MP3 should be deleted: \"%s\"\n",sFilename);
 					}
 				}
 				else

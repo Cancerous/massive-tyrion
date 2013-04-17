@@ -272,7 +272,7 @@ qhandle_t cgi_R_RegisterSkin( const char *name ) {
 
 qhandle_t cgi_R_RegisterShader( const char *name ) {
 	qhandle_t hShader = syscall( CG_R_REGISTERSHADER, name );
-	assert (hShader);
+	//assert (hShader);
 	return  hShader;
 }
 

@@ -45,7 +45,7 @@
 #define DLLIFC __declspec(dllexport)
 #endif
 
-#include <windows.h>
+#include <xtl.h>
 #include "ImmCondition.h"
 
 

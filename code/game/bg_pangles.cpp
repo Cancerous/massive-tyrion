@@ -25,7 +25,7 @@ void BG_G2SetBoneAngles( centity_t *cent, gentity_t *gent, int boneIndex, const 
 {
 	if (boneIndex!=-1)
 	{
-		gi.G2API_SetBoneAnglesIndex( &cent->gent->ghoul2[0], boneIndex, angles, flags, up, left, forward, modelList, 0, 0  ); 
+		gi.G2API_SetBoneAnglesIndex( &cent->gent->ghoul2[0], boneIndex, angles, flags, up, left, forward, modelList, 0, 0 ); 
 	}
 }
 

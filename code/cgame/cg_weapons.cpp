@@ -948,7 +948,7 @@ void CG_AddViewWeapon( playerState_t *ps )
 	weaponData_t  *wData;
 	centity_t	*cent;
 	float		fovOffset, leanOffset;
-	int i ;
+	int i;
 
 	// no gun if in third person view
 	if ( cg.renderingThirdPerson )

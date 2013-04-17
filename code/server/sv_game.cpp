@@ -52,7 +52,7 @@ gentity_t	*SV_GentityNum( int num ) {
 
 svEntity_t	*SV_SvEntityForGentity( gentity_t *gEnt ) {
 	if ( !gEnt || gEnt->s.number < 0 || gEnt->s.number >= MAX_GENTITIES ) {
-		Com_Error( ERR_DROP, "SV_SvEntityForGentity: bad gEnt" );
+		Com_Printf( "SV_SvEntityForGentity: bad gEnt" );
 	}
 	return &sv.svEntities[ gEnt->s.number ];
 }
@@ -117,11 +117,11 @@ void SV_SetBrushModel( gentity_t *ent, const char *name ) {
 	vec3_t			mins, maxs;
 
 	if (!name) {
-		Com_Error( ERR_DROP, "SV_SetBrushModel: NULL" );
+		Com_Printf( "SV_SetBrushModel: NULL" );
 	}
 
 	if (name[0] != '*') {
-		Com_Error( ERR_DROP, "SV_SetBrushModel: %s isn't a brush model", name );
+		Com_Printf( "SV_SetBrushModel: %s isn't a brush model", name );
 	}
 
 
@@ -277,7 +277,7 @@ SV_GetServerinfo
 */
 void SV_GetServerinfo( char *buffer, int bufferSize ) {
 	if ( bufferSize < 1 ) {
-		Com_Error( ERR_DROP, "SV_GetServerinfo: bufferSize == %i", bufferSize );
+		Com_Printf( "SV_GetServerinfo: bufferSize == %i", bufferSize );
 	}
 	Q_strncpyz( buffer, Cvar_InfoString( CVAR_SERVERINFO ), bufferSize );
 }
@@ -334,7 +334,7 @@ void SV_InitGameProgs (void) {
 
 	if ( !Cvar_VariableIntegerValue("fs_restrict") && !Sys_CheckCD() ) 
 	{
-		Com_Error( ERR_NEED_CD, SP_GetStringTextString("CON_TEXT_NEED_CD") ); //"Game CD not in drive" );		
+		Com_Printf( SP_GetStringTextString("CON_TEXT_NEED_CD") ); //"Game CD not in drive" );		
 	}
 
 	// load a new game dll
@@ -470,14 +470,14 @@ Ghoul2 Insert End
 	ge = (game_export_t *)Sys_GetGameAPI (&import);
 
 	if (!ge)
-		Com_Error (ERR_DROP, "failed to load game DLL");
+		Com_Printf( "failed to load game DLL");
 
 	//hook up the client while we're here
 	if (!VM_Create("cl"))
-		Com_Error (ERR_DROP, "failed to attach to the client DLL");
+		Com_Printf( "failed to attach to the client DLL");
 
 	if (ge->apiversion != GAME_API_VERSION)
-		Com_Error (ERR_DROP, "game is version %i, not %i", ge->apiversion,
+		Com_Printf( "game is version %i, not %i", ge->apiversion,
 		GAME_API_VERSION);
 
 	// use the current msec count for a random seed

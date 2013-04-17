@@ -109,8 +109,8 @@ extern	void ( * qglMultiTexCoord2fARB )( GLenum texture, GLfloat s, GLfloat t );
 extern	void ( * qglActiveTextureARB )( GLenum texture );
 extern	void ( * qglClientActiveTextureARB )( GLenum texture );
 
-extern	void ( *qglLockArraysEXT) (GLint, GLint);
-extern	void ( *qglUnlockArraysEXT) (void);
+extern	void ( * qglLockArraysEXT) (GLint, GLint);
+extern	void ( * qglUnlockArraysEXT) (void);
 
 extern	void ( * qglPointParameterfEXT)( GLenum, GLfloat);
 extern	void ( * qglPointParameterfvEXT)( GLenum, GLfloat *);

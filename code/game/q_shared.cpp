@@ -499,7 +499,7 @@ void COM_MatchToken( const char **buf_p, const char *match ) {
 	token = COM_Parse( buf_p );
 	if ( strcmp( token, match ) ) 
 	{
-		Com_Error( ERR_DROP, "MatchToken: %s != %s", token, match );
+		Com_Printf( "MatchToken: %s != %s", token, match );
 	}
 }
 
@@ -662,17 +662,17 @@ Safe strncpy that ensures a trailing zero
 void Q_strncpyz( char *dest, const char *src, int destsize, qboolean bBarfIfTooLong/* = qfalse */ )
 {
 	if ( !src ) {
-		Com_Error( ERR_FATAL, "Q_strncpyz: NULL src" );
+		Com_Printf( "Q_strncpyz: NULL src" );
 	}
 	if ( destsize < 1 ) {
-		Com_Error(ERR_FATAL,"Q_strncpyz: destsize < 1" ); 
+		Com_Printf("Q_strncpyz: destsize < 1" ); 
 	}
 
 	if (bBarfIfTooLong)
 	{
 		if ( strlen(src)+1 > destsize)
 		{
-			Com_Error(ERR_FATAL,"String dest buffer too small to hold string \"%s\"",src);
+			Com_Printf("String dest buffer too small to hold string \"%s\"",src);
 		}
 	}
 	strncpy( dest, src, destsize-1 );
@@ -756,7 +756,7 @@ void Q_strcat( char *dest, int size, const char *src ) {
 
 	l1 = strlen( dest );
 	if ( l1 >= size ) {
-		Com_Error( ERR_FATAL, "Q_strcat: already overflowed" );
+		Com_Printf( "Q_strcat: already overflowed" );
 	}
 	Q_strncpyz( dest + l1, src, size - l1 );
 }
@@ -816,7 +816,7 @@ void QDECL Com_sprintf( char *dest, int size, const char *fmt, ...) {
 	len = vsprintf (bigbuffer,fmt,argptr);
 	va_end (argptr);
 	if ( len >= sizeof( bigbuffer ) ) {
-		Com_Error( ERR_FATAL, "Com_sprintf: overflowed bigbuffer" );
+		Com_Printf( "Com_sprintf: overflowed bigbuffer" );
 	}
 	if (len >= size) {
 		Com_Printf ("Com_sprintf: overflow of %i in %i\n", len, size);
@@ -880,7 +880,7 @@ char *Info_ValueForKey( const char *s, const char *key ) {
 	}
 
 	if ( strlen( s ) >= MAX_INFO_STRING ) {
-		Com_Error( ERR_DROP, "Info_ValueForKey: oversize infostring" );
+		Com_Printf( "Info_ValueForKey: oversize infostring" );
 	}
 
 	valueindex ^= 1;
@@ -971,7 +971,7 @@ void Info_RemoveKey( char *s, const char *key ) {
 	char	*o;
 
 	if ( strlen( s ) >= MAX_INFO_STRING ) {
-		Com_Error( ERR_DROP, "Info_RemoveKey: oversize infostring" );
+		Com_Printf( "Info_RemoveKey: oversize infostring" );
 	}
 
 	if (strchr (key, '\\')) {
@@ -1044,7 +1044,7 @@ void Info_SetValueForKey( char *s, const char *key, const char *value ) {
 	char	newi[MAX_INFO_STRING];
 
 	if ( strlen( s ) >= MAX_INFO_STRING ) {
-		Com_Error( ERR_DROP, "Info_SetValueForKey: oversize infostring" );
+		Com_Printf( "Info_SetValueForKey: oversize infostring" );
 	}
 
 	if (strchr (key, '\\') || strchr (value, '\\'))

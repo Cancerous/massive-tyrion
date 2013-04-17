@@ -38,7 +38,10 @@ extern "C" {
 #define WIN32_LEAN_AND_MEAN 1
 #include <windows.h>
 #endif
-
+#if defined(_XBOX)
+#define WIN32_LEAN_AND_MEAN 1
+#include <xtl.h>
+#endif
 #ifndef APIENTRY
 #define APIENTRY
 #endif

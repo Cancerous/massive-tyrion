@@ -653,20 +653,20 @@ void Z_Validate(void)
 		int& iAllocCount = mapAllocatedZones[pMemory];
 		if (iAllocCount <= 0)
 		{
-			Com_Error(ERR_FATAL, "Z_Validate(): Bad block allocation count!");
+			Com_Printf( "Z_Validate(): Bad block allocation count!");
 			return;
 		}		   
 		#endif
 
 		if(pMemory->iMagic != ZONE_MAGIC)
 		{
-			Com_Error(ERR_FATAL, "Z_Validate(): Corrupt zone header!");
+			Com_Printf( "Z_Validate(): Corrupt zone header!");
 			return;
 		}
 
 		if (ZoneTailFromHeader(pMemory)->iMagic != ZONE_MAGIC)
 		{
-			Com_Error(ERR_FATAL, "Z_Validate(): Corrupt zone tail!");
+			Com_Printf( "Z_Validate(): Corrupt zone tail!");
 			return;
 		}
 		
@@ -838,7 +838,7 @@ void *Z_Malloc(int iSize, memtag_t eTag, qboolean bZeroit)
 
 			Com_Printf(S_COLOR_RED"Z_Malloc(): Failed to alloc %d bytes (TAG_%s) !!!!!\n", iSize, psTagStrings[eTag]);
 			Z_Details_f();
-			Com_Error(ERR_FATAL,"(Repeat): Z_Malloc(): Failed to alloc %d bytes (TAG_%s) !!!!!\n", iSize, psTagStrings[eTag]);
+			Com_Printf("(Repeat): Z_Malloc(): Failed to alloc %d bytes (TAG_%s) !!!!!\n", iSize, psTagStrings[eTag]);
 			return NULL;
 		}
 	}
@@ -926,7 +926,7 @@ static void Zone_FreeBlock(zoneHeader_t *pMemory)
 		int& iAllocCount = mapAllocatedZones[pMemory];
 		if (iAllocCount == 0)
 		{
-			Com_Error(ERR_FATAL, "Zone_FreeBlock(): Double-freeing block!");
+			Com_Printf( "Zone_FreeBlock(): Double-freeing block!");
 			return;
 		}
 		iAllocCount--;	
@@ -947,7 +947,7 @@ int Z_Size(void *pvAddress)
 
 	if (pMemory->iMagic != ZONE_MAGIC)
 	{
-		Com_Error(ERR_FATAL, "Z_Size(): Not a valid zone header!");
+		Com_Printf( "Z_Size(): Not a valid zone header!");
 		return 0;	// won't get here
 	}
 
@@ -967,7 +967,7 @@ void _D_Z_Label(const void *pvAddress, const char *psLabel)
 
 	if (pMemory->iMagic != ZONE_MAGIC)
 	{
-		Com_Error(ERR_FATAL, "Z_Size(): Not a valid zone header!");
+		Com_Printf( "Z_Size(): Not a valid zone header!");
 	}
 
 	Q_strncpyz(	pMemory->sOptionalLabel, psLabel, sizeof(pMemory->sOptionalLabel));
@@ -995,19 +995,19 @@ void Z_Free(void *pvAddress)
 	int& iAllocCount = mapAllocatedZones[pMemory];
 	if (iAllocCount <= 0)
 	{			
-		Com_Error(ERR_FATAL, "Z_Free(): Block already-freed, or not allocated through Z_Malloc!");
+		Com_Printf( "Z_Free(): Block already-freed, or not allocated through Z_Malloc!");
 		return;
 	}		   
 	#endif
 
 	if (pMemory->iMagic != ZONE_MAGIC)
 	{
-		Com_Error(ERR_FATAL, "Z_Free(): Corrupt zone header!");
+		Com_Printf( "Z_Free(): Corrupt zone header!");
 		return;
 	}
 	if (ZoneTailFromHeader(pMemory)->iMagic != ZONE_MAGIC)
 	{
-		Com_Error(ERR_FATAL, "Z_Free(): Corrupt zone tail!");
+		Com_Printf( "Z_Free(): Corrupt zone tail!");
 		return;
 	}
 
@@ -1540,13 +1540,13 @@ sysEvent_t	Com_GetRealEvent( void ) {
 	if ( com_journal->integer == 2 ) {
 		r = FS_Read( &ev, sizeof(ev),  com_journalFile );
 		if ( r != sizeof(ev) ) {
-			Com_Error( ERR_FATAL, "Error reading from journal file" );
+			Com_Printf( "Error reading from journal file" );
 		}
 		if ( ev.evPtrLength ) {
 			ev.evPtr = Z_Malloc( ev.evPtrLength, TAG_EVENT, qfalse);
 			r = FS_Read( ev.evPtr, ev.evPtrLength, com_journalFile );
 			if ( r != ev.evPtrLength ) {
-				Com_Error( ERR_FATAL, "Error reading from journal file" );
+				Com_Printf( "Error reading from journal file" );
 			}
 		}
 	} else {
@@ -1556,12 +1556,12 @@ sysEvent_t	Com_GetRealEvent( void ) {
 		if ( com_journal->integer == 1 ) {
 			r = FS_Write( &ev, sizeof(ev), com_journalFile );
 			if ( r != sizeof(ev) ) {
-				Com_Error( ERR_FATAL, "Error writing to journal file" );
+				Com_Printf( "Error writing to journal file" );
 			}
 			if ( ev.evPtrLength ) {
 				r = FS_Write( ev.evPtr, ev.evPtrLength, com_journalFile );
 				if ( r != ev.evPtrLength ) {
-					Com_Error( ERR_FATAL, "Error writing to journal file" );
+					Com_Printf( "Error writing to journal file" );
 				}
 			}
 		}
@@ -1677,7 +1677,7 @@ int Com_EventLoop( void ) {
 
 		switch ( ev.evType ) {
 		default:
-			Com_Error( ERR_FATAL, "Com_EventLoop: bad event type %i", ev.evTime );
+			Com_Printf( "Com_EventLoop: bad event type %i", ev.evTime );
 			break;
         case SE_NONE:
             break;
@@ -1759,9 +1759,9 @@ test error shutdown procedures
 */
 static void Com_Error_f (void) {
 	if ( Cmd_Argc() > 1 ) {
-		Com_Error( ERR_DROP, "Testing drop error" );
+		Com_Printf( "Testing drop error" );
 	} else {
-		Com_Error( ERR_FATAL, "Testing fatal error" );
+		Com_Printf( "Testing fatal error" );
 	}
 }
 
@@ -1865,7 +1865,7 @@ void Com_Init( char *commandLine ) {
 		Cmd_AddCommand ("quit", Com_Quit_f);
 		Cmd_AddCommand ("writeconfig", Com_WriteConfig_f );
 		
-		com_maxfps = Cvar_Get ("com_maxfps", "85", CVAR_ARCHIVE);
+		com_maxfps = Cvar_Get ("com_maxfps", "1000", CVAR_ARCHIVE);
 		
 		com_developer = Cvar_Get ("developer", "0", CVAR_TEMP );
 		com_logfile = Cvar_Get ("logfile", "0", CVAR_TEMP );

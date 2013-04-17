@@ -364,12 +364,12 @@ qboolean MenuParse_name(itemDef_t *item)
 	{
 		return qfalse;
 	}
-
-//	if (Q_stricmp(menu->window.name, "main") == 0) 
-//	{
+// sounds good to me
+	if (Q_stricmp(menu->window.name, "main") == 0) 
+	{
 		// default main as having focus
-//		menu->window.flags |= WINDOW_HASFOCUS;
-//	}
+		menu->window.flags |= WINDOW_HASFOCUS;
+	}
 	return qtrue;
 }
 

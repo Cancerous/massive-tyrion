@@ -52,10 +52,10 @@ void *MSG_GetSpace( msg_t *buf, int length ) {
 
 	if ( buf->cursize + length > buf->maxsize )	{
 		if ( !buf->allowoverflow ) {
-			Com_Error (ERR_FATAL, "MSG_GetSpace: overflow without allowoverflow set");
+			Com_Printf( "MSG_GetSpace: overflow without allowoverflow set");
 		}
 		if ( length > buf->maxsize ) {
-			Com_Error (ERR_FATAL, "MSG_GetSpace: %i is > full buffer size", length);
+			Com_Printf( "MSG_GetSpace: %i is > full buffer size", length);
 		}
 		Com_Printf ("MSG_GetSpace: overflow\n");
 		MSG_Clear (buf); 
@@ -98,7 +98,7 @@ void MSG_WriteBits( msg_t *msg, int value, int bits ) {
 	}
 
 	if ( bits == 0 || bits < -31 || bits > 32 ) {
-		Com_Error( ERR_DROP, "MSG_WriteBits: bad bits %i", bits );
+		Com_Printf( "MSG_WriteBits: bad bits %i", bits );
 	}
 
 	// check for overflows
@@ -203,7 +203,7 @@ int MSG_ReadBits( msg_t *msg, int bits ) {
 void MSG_WriteByte( msg_t *sb, int c ) {
 #ifdef PARANOID
 	if (c < 0 || c > 255)
-		Com_Error (ERR_FATAL, "MSG_WriteByte: range error");
+		Com_Printf( "MSG_WriteByte: range error");
 #endif
 
 	MSG_WriteBits( sb, c, 8 );
@@ -212,7 +212,7 @@ void MSG_WriteByte( msg_t *sb, int c ) {
 void MSG_WriteShort( msg_t *sb, int c ) {
 #ifdef PARANOID
 	if (c < ((short)0x8000) || c > (short)0x7fff)
-		Com_Error (ERR_FATAL, "MSG_WriteShort: range error");
+		Com_Printf( "MSG_WriteShort: range error");
 #endif
 
 	MSG_WriteBits( sb, c, 16 );
@@ -727,7 +727,7 @@ void MSG_WriteDeltaEntity( msg_t *msg, struct entityState_s *from, struct entity
 	}
 
 	if ( to->number < 0 || to->number >= MAX_GENTITIES ) {
-		Com_Error (ERR_FATAL, "MSG_WriteDeltaEntity: Bad entity number: %i", to->number );
+		Com_Printf( "MSG_WriteDeltaEntity: Bad entity number: %i", to->number );
 	}
 
 	memset(changeVector, 0, sizeof(changeVector));
@@ -804,7 +804,7 @@ void MSG_ReadDeltaEntity( msg_t *msg, entityState_t *from, entityState_t *to, in
 	byte		expandedVector[(numFields/8) + 1];
 
 	if ( number < 0 || number >= MAX_GENTITIES) {
-		Com_Error( ERR_DROP, "Bad delta entity number: %i", number );
+		Com_Printf( "Bad delta entity number: %i", number );
 	}
 
 	if ( msg->bit == 0 ) {

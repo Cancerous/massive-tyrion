@@ -191,7 +191,7 @@ gitem_t	*FindItemForWeapon( weapon_t weapon ) {
 		}
 	}
 
-	Com_Error( ERR_DROP, "Couldn't find item for weapon %i", weapon);
+	Com_Printf( "Couldn't find item for weapon %i", weapon);
 	return NULL;
 }
 
@@ -215,7 +215,7 @@ gitem_t	*FindItemForInventory( int inv )
 		}
 	}
 
-	Com_Error( ERR_DROP, "Couldn't find item for inventory %i", inv );
+	Com_Printf( "Couldn't find item for inventory %i", inv );
 	return NULL;
 }
 
@@ -237,7 +237,7 @@ gitem_t	*FindItemForAmmo( ammo_t ammo )
 		}
 	}
 
-	Com_Error( ERR_DROP, "Couldn't find item for ammo %i", ammo );
+	Com_Printf( "Couldn't find item for ammo %i", ammo );
 	return NULL;
 }
 
@@ -271,7 +271,7 @@ qboolean	BG_CanItemBeGrabbed( const entityState_t *ent, const playerState_t *ps 
 	gitem_t	*item;
 
 	if ( ent->modelindex < 1 || ent->modelindex >= bg_numItems ) {
-		Com_Error( ERR_DROP, "BG_CanItemBeGrabbed: index out of range" );
+		Com_Printf( "BG_CanItemBeGrabbed: index out of range" );
 	}
 
 	item = &bg_itemlist[ent->modelindex];
@@ -441,7 +441,7 @@ void EvaluateTrajectory( const trajectory_t *tr, int atTime, vec3_t result ) {
 		result[2] -= 0.5F * g_gravity->value * deltaTime * deltaTime;//DEFAULT_GRAVITY
 		break;
 	default:
-		Com_Error( ERR_DROP, "EvaluateTrajectory: unknown trType: %i", tr->trTime );
+		Com_Printf( "EvaluateTrajectory: unknown trType: %i", tr->trTime );
 		break;
 	}
 }
@@ -494,7 +494,7 @@ void EvaluateTrajectoryDelta( const trajectory_t *tr, int atTime, vec3_t result 
 		result[2] -= g_gravity->value * deltaTime;		// DEFAULT_GRAVITY
 		break;
 	default:
-		Com_Error( ERR_DROP, "EvaluateTrajectoryDelta: unknown trType: %i", tr->trTime );
+		Com_Printf( "EvaluateTrajectoryDelta: unknown trType: %i", tr->trTime );
 		break;
 	}
 }

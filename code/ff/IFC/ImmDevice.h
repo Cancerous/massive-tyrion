@@ -43,7 +43,7 @@
 #define DLLIFC __declspec(dllexport)
 #endif
 
-#include <dinput.h>
+#include <xinput2.h>
 #include "ImmBaseTypes.h"
 
 #ifdef IFC_EFFECT_CACHING

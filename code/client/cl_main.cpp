@@ -98,7 +98,7 @@ void CL_AddReliableCommand( const char *cmd ) {
 	// if we would be losing an old command that hasn't been acknowledged,
 	// we must drop the connection
 	if ( clc.reliableSequence - clc.reliableAcknowledge > MAX_RELIABLE_COMMANDS ) {
-		Com_Error( ERR_DROP, "Client command overflow" );
+		Com_Printf( "Client command overflow" );
 	}
 	clc.reliableSequence++;
 	index = clc.reliableSequence & ( MAX_RELIABLE_COMMANDS - 1 );
@@ -394,7 +394,7 @@ void CL_Disconnect_f( void ) {
 	// Either there's a bug, or the new version of that function conditionally-doesn't stop cinematics...
 	//
 	if ( cls.state != CA_DISCONNECTED && cls.state != CA_CINEMATIC ) {
-		Com_Error (ERR_DISCONNECT, "Disconnected from server");
+		Com_Printf( "Disconnected from server");
 	}
 }
 
@@ -581,7 +581,7 @@ void CL_CheckForResend( void ) {
 		break;
 
 	default:
-		Com_Error( ERR_FATAL, "CL_CheckForResend: bad cls.state" );
+		Com_Printf( "CL_CheckForResend: bad cls.state" );
 	}
 }
 
@@ -1107,7 +1107,7 @@ void CL_InitRef( void ) {
 	Com_Printf( "-------------------------------\n");
 
 	if ( !ret ) {
-		Com_Error (ERR_FATAL, "Couldn't initialize refresh" );
+		Com_Printf( "Couldn't initialize refresh" );
 	}
 
 	re = *ret;

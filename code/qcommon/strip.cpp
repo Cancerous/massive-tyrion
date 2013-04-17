@@ -871,7 +871,7 @@ qboolean SP_Register(const char *inPackage, unsigned char Registration)
 		{
 			if ( Registration & SP_REGISTER_REQUIRED )
 			{
-				Com_Error(ERR_FATAL, "Could not open string package '%s'", Package);
+				Com_Printf( "Could not open string package '%s'", Package);
 			}
 			return qfalse;
 		}
@@ -970,7 +970,7 @@ cStringsSingle *SP_GetString(unsigned short ID)
 	i = SP_ListByID.find(SP_GET_PACKAGE(ID));
 	if (i == SP_ListByID.end())
 	{
-		Com_Error(ERR_DROP, "String package not registered for ID %04x", ID);
+		Com_Printf( "String package not registered for ID %04x", ID);
 		return NULL;
 	}
 
@@ -979,7 +979,7 @@ cStringsSingle *SP_GetString(unsigned short ID)
 
 	if (!string)
 	{
-		Com_Error(ERR_DROP, "String ID %04x not defined\n", ID);
+		Com_Printf( "String ID %04x not defined\n", ID);
 	}
 	return string;
 }

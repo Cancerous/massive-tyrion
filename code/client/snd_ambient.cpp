@@ -663,7 +663,7 @@ static void AS_ParseHeader( void )
 			{
 				return;
 			}
-			Com_Error( ERR_DROP, "AS_ParseHeader: Set type \"%s\" is not a valid set type!\n", typeBuffer );
+			Com_Printf( "AS_ParseHeader: Set type \"%s\" is not a valid set type!\n", typeBuffer );
 
 			break;
 
@@ -770,7 +770,7 @@ void AS_ParseSets( void )
 	//Parse all the sets
 	if ( AS_ParseFile( AMBIENT_SET_FILENAME, aSets ) == qfalse )
 	{
-		Com_Error ( ERR_FATAL, S_COLOR_RED"ERROR: Couldn't load ambient sound sets from %s", AMBIENT_SET_FILENAME );
+		Com_Printf( S_COLOR_RED"ERROR: Couldn't load ambient sound sets from %s", AMBIENT_SET_FILENAME );
 	}
 
 	Com_Printf( "AS_ParseFile: Loaded %d of %d ambient set(s)\n", pMap.size(), numSets );
@@ -790,7 +790,7 @@ void AS_ParseSets( void )
 
 	if (iErrorsOccured)
 	{
-		Com_Error( ERR_DROP, "....%d missing sound sets! (see above)\n", iErrorsOccured);
+		Com_Printf( "....%d missing sound sets! (see above)\n", iErrorsOccured);
 	}
 
 //	//Done with the precache info, it will be rebuilt on a restart

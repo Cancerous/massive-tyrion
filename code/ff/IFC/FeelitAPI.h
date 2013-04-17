@@ -49,7 +49,7 @@ extern "C" {
 
 #ifdef _WIN32
 #define COM_NO_WINDOWS_H
-#include <objbase.h>
+#include <xobjbase.h>
 #endif
 
 /****************************************************************************

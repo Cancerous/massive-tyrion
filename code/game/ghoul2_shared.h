@@ -291,14 +291,14 @@ public:
 	}
 	CGhoul2Info &operator[](int idx)
 	{
-		assert(mItem);
-		assert(idx>=0&&idx<size());
+		//assert(mItem);
+		//assert(idx>=0&&idx<size());
 		return Array()[idx];
 	}
 	const CGhoul2Info &operator[](int idx) const
 	{
-		assert(mItem);
-		assert(idx>=0&&idx<size());
+		//assert(mItem);
+		//assert(idx>=0&&idx<size());
 		return Array()[idx];
 	}
 	void resize(int num)

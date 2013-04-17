@@ -1639,13 +1639,13 @@ void SP_misc_trip_mine( gentity_t *self )
 
 	if ( trace.allsolid || trace.startsolid )
 	{
-		Com_Error( ERR_DROP,"misc_trip_mine at %s in solid\n", vtos(self->s.origin) );
+		Com_Printf("misc_trip_mine at %s in solid\n", vtos(self->s.origin) );
 		G_FreeEntity( self );
 		return;
 	}
 	if ( trace.fraction == 1.0 )
 	{
-		Com_Error( ERR_DROP,"misc_trip_mine at %s pointed at no surface\n", vtos(self->s.origin) );
+		Com_Printf("misc_trip_mine at %s pointed at no surface\n", vtos(self->s.origin) );
 		G_FreeEntity( self );
 		return;
 	}
@@ -1733,7 +1733,7 @@ void maglock_link( gentity_t *self )
 
 	if ( trace.allsolid || trace.startsolid )
 	{
-		Com_Error( ERR_DROP,"misc_maglock at %s in solid\n", vtos(self->s.origin) );
+		Com_Printf("misc_maglock at %s in solid\n", vtos(self->s.origin) );
 		G_FreeEntity( self );
 		return;
 	}
@@ -1742,7 +1742,7 @@ void maglock_link( gentity_t *self )
 		self->e_ThinkFunc = thinkF_maglock_link;
 		self->nextthink = level.time + 100;
 		/*
-		Com_Error( ERR_DROP,"misc_maglock at %s pointed at no surface\n", vtos(self->s.origin) );
+		Com_Printf("misc_maglock at %s pointed at no surface\n", vtos(self->s.origin) );
 		G_FreeEntity( self );
 		*/
 		return;
@@ -1752,7 +1752,7 @@ void maglock_link( gentity_t *self )
 	{
 		self->e_ThinkFunc = thinkF_maglock_link;
 		self->nextthink = level.time + 100;
-		//Com_Error( ERR_DROP,"misc_maglock at %s not pointed at a door\n", vtos(self->s.origin) );
+		//Com_Printf("misc_maglock at %s not pointed at a door\n", vtos(self->s.origin) );
 		//G_FreeEntity( self );
 		return;
 	}

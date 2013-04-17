@@ -65,7 +65,7 @@ qboolean CL_GetUserCmd( int cmdNumber, usercmd_t *ucmd ) {
 
 	// can't return anything that we haven't created yet
 	if ( cmdNumber > cl.cmdNumber ) {
-		Com_Error( ERR_DROP, "CL_GetUserCmd: %i >= %i", cmdNumber, cl.cmdNumber );
+		Com_Printf( "CL_GetUserCmd: %i >= %i", cmdNumber, cl.cmdNumber );
 	}
 
 	// the usercmd has been overwritten in the wrapping
@@ -92,7 +92,7 @@ CL_GetParseEntityState
 qboolean	CL_GetParseEntityState( int parseEntityNumber, entityState_t *state ) {
 	// can't return anything that hasn't been parsed yet
 	if ( parseEntityNumber >= cl.parseEntitiesNum ) {
-		Com_Error( ERR_DROP, "CL_GetParseEntityState: %i >= %i",
+		Com_Printf( "CL_GetParseEntityState: %i >= %i",
 			parseEntityNumber, cl.parseEntitiesNum );
 	}
 
@@ -125,7 +125,7 @@ qboolean	CL_GetSnapshot( int snapshotNumber, snapshot_t *snapshot ) {
 	int				i, count;
 
 	if ( snapshotNumber > cl.frame.messageNum ) {
-		Com_Error( ERR_DROP, "CL_GetSnapshot: snapshotNumber > cl.frame.messageNum" );
+		Com_Printf( "CL_GetSnapshot: snapshotNumber > cl.frame.messageNum" );
 	}
 
 	// if the frame has fallen out of the circular buffer, we can't return it
@@ -203,7 +203,7 @@ void CL_AddCgameCommand( const char *cmdName ) {
 }
 
 void CL_CgameError( const char *string ) {
-	Com_Error( ERR_DROP, "%s", string );
+	Com_Printf( "%s", string );
 }
 
 
@@ -221,7 +221,7 @@ void CL_ConfigstringModified( void ) {
 
 	index = atoi( Cmd_Argv(1) );
 	if ( index < 0 || index >= MAX_CONFIGSTRINGS ) {
-		Com_Error( ERR_DROP, "configstring > MAX_CONFIGSTRINGS" );
+		Com_Printf( "configstring > MAX_CONFIGSTRINGS" );
 	}
 	s = Cmd_Argv(2);
 
@@ -251,7 +251,7 @@ void CL_ConfigstringModified( void ) {
 		len = strlen( dup );
 
 		if ( len + 1 + cl.gameState.dataCount > MAX_GAMESTATE_CHARS ) {
-			Com_Error( ERR_DROP, "MAX_GAMESTATE_CHARS exceeded" );
+			Com_Printf( "MAX_GAMESTATE_CHARS exceeded" );
 		}
 
 		// append it to the gameState string buffer
@@ -281,12 +281,12 @@ qboolean CL_GetServerCommand( int serverCommandNumber ) {
 
 	// if we have irretrievably lost a reliable command, drop the connection
 	if ( serverCommandNumber <= clc.serverCommandSequence - MAX_RELIABLE_COMMANDS ) {
-		Com_Error( ERR_DROP, "CL_GetServerCommand: a reliable command was cycled out" );
+		Com_Printf( "CL_GetServerCommand: a reliable command was cycled out" );
 		return qfalse;
 	}
 
 	if ( serverCommandNumber > clc.serverCommandSequence ) {
-		Com_Error( ERR_DROP, "CL_GetServerCommand: requested a command not received" );
+		Com_Printf( "CL_GetServerCommand: requested a command not received" );
 		return qfalse;
 	}
 
@@ -298,7 +298,7 @@ qboolean CL_GetServerCommand( int serverCommandNumber ) {
 	cmd = Cmd_Argv(0);
 
 	if ( !strcmp( cmd, "disconnect" ) ) {
-		Com_Error (ERR_DISCONNECT,"Server disconnected\n");
+		Com_Printf( "Server disconnected\n");
 	}
 
 	if ( !strcmp( cmd, "cs" ) ) {
@@ -397,7 +397,7 @@ int CL_CgameSystemCalls( int *args ) {
 		Com_Printf( "%s", VMA(1) );
 		return 0;
 	case CG_ERROR:
-		Com_Error( ERR_DROP, S_COLOR_RED"%s", VMA(1) );
+		Com_Printf( S_COLOR_RED"%s", VMA(1) );
 		return 0;
 	case CG_MILLISECONDS:
 		return Sys_Milliseconds();
@@ -836,7 +836,7 @@ Ghoul2 Insert End
 		return strlen(text);
 		//break;
 	default:
-		Com_Error( ERR_DROP, "Bad cgame system trap: %i", args[0] );
+		Com_Printf( "Bad cgame system trap: %i", args[0] );
 	}
 	return 0;
 }
@@ -1086,7 +1086,7 @@ void CL_SetCGameTime( void ) {
 
 	// if we have gotten to this point, cl.frame is guaranteed to be valid
 	if ( !cl.frame.valid ) {
-		Com_Error( ERR_DROP, "CL_SetCGameTime: !cl.snap.valid" );
+		Com_Printf( "CL_SetCGameTime: !cl.snap.valid" );
 	}
 
 	// allow pause in single player
@@ -1096,7 +1096,7 @@ void CL_SetCGameTime( void ) {
 	}
 
 	if ( cl.frame.serverTime < cl.oldFrameServerTime ) {
-		Com_Error( ERR_DROP, "cl.frame.serverTime < cl.oldFrameServerTime" );
+		Com_Printf( "cl.frame.serverTime < cl.oldFrameServerTime" );
 	}
 	cl.oldFrameServerTime = cl.frame.serverTime;
 

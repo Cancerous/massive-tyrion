@@ -328,7 +328,7 @@ void Sys_UnloadGame( void ) {
 		return;
 	}
 	if ( !FreeLibrary (game_library) ) {
-		Com_Error (ERR_FATAL, "FreeLibrary failed for game library");
+		Com_Printf( "FreeLibrary failed for game library");
 	}
 	game_library = NULL;
 }
@@ -376,7 +376,7 @@ void *Sys_GetGameAPI (void *parms)
 #endif //_M__IX86
 
 	if (game_library)
-		Com_Error (ERR_FATAL, "Sys_GetGameAPI without Sys_UnloadingGame");
+		Com_Printf( "Sys_GetGameAPI without Sys_UnloadingGame");
 
 	// check the current debug directory first for development purposes
 #ifndef _XBOX
@@ -410,7 +410,7 @@ void *Sys_GetGameAPI (void *parms)
 
 			Com_Printf( "LoadLibrary(\"%s\") failed\n", name);
 			Com_Printf( "...reason: '%s'\n", buf );
-			Com_Error( ERR_FATAL, "Couldn't load game" );
+			Com_Printf( "Couldn't load game" );
 		}
 	}
 	GetGameAPI = (void *(*)(void *))GetProcAddress (game_library, "GetGameAPI");
@@ -600,7 +600,7 @@ Sys_EndStreamedFile
 */
 void Sys_EndStreamedFile( fileHandle_t f ) {
 	if ( f != stream.file ) {
-		Com_Error( ERR_FATAL, "Sys_EndStreamedFile: wrong file");
+		Com_Printf( "Sys_EndStreamedFile: wrong file");
 	}
 	// don't leave critical section until another stream is started
 	EnterCriticalSection( &stream.crit );
@@ -630,7 +630,7 @@ int Sys_StreamedRead( void *buffer, int size, int count, fileHandle_t f ) {
 	remaining = size * count;
 
 	if ( remaining <= 0 ) {
-		Com_Error( ERR_FATAL, "Streamed read with non-positive size" );
+		Com_Printf( "Streamed read with non-positive size" );
 	}
 
 	sleepCount = 0;
@@ -644,7 +644,7 @@ int Sys_StreamedRead( void *buffer, int size, int count, fileHandle_t f ) {
 				Com_DPrintf( "Sys_StreamedRead: waiting\n" );
 			}
 			if ( ++sleepCount > 100 ) {
-				Com_Error( ERR_FATAL, "Sys_StreamedRead: thread has died");
+				Com_Printf( "Sys_StreamedRead: thread has died");
 			}
 			Sleep( 10 );
 			continue;
@@ -866,7 +866,7 @@ void Sys_Init( void ) {
 			Cvar_Set( "sys_cpustring", "Alpha AXP" );
 			break;
 		default:
-			Com_Error( ERR_FATAL, "Unknown cpu type %d\n", cpuid );
+			Com_Printf( "Unknown cpu type %d\n", cpuid );
 			break;
 		}
 	}
@@ -933,7 +933,7 @@ static void QuickMemTest(void)
 		else
 		{
 			LPCSTR psNoMem = SP_GetStringTextString("CON_TEXT_INSUFFICIENT_MEMORY");
-			Com_Error( ERR_FATAL, psNoMem );
+			Com_Printf( psNoMem );
 		}
 	}
 }
@@ -986,9 +986,9 @@ int main() {
     // main game loop
 	while( 1 ) {
 		// if not running as a game client, sleep a bit
-		if ( g_wv.isMinimized ) {
-			Sleep( 5 );
-		}
+		//if ( g_wv.isMinimized ) {
+		//	Sleep( 5 );
+		//}
 
 		// set low precision every frame, because some system calls
 		// reset it arbitrarily

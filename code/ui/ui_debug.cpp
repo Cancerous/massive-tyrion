@@ -545,7 +545,7 @@ void UI_Dump_f(void)
 			OutputDebugString( va("...loading '%s'\n", sFilename ) );
 			int iLen = FS_ReadFile( sFilename, (void **)&buffers[i] );
 			if ( iLen<1 ) {
-				assert(0);//Com_Error( ERR_DROP, "Couldn't load %s", filename );
+				assert(0);//Com_Printf( "Couldn't load %s", filename );
 			}
 		}
 

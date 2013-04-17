@@ -9,6 +9,7 @@
 //#include "../client/client.h"
 //#include "../client/fffx.h"
 //#include "../ff/common_headers.h"
+////#include "../ff/ff_public.h"
 
 typedef int	ffHandle_t;
 typedef int	ffFX_e;
@@ -46,36 +47,43 @@ void _FF_PlayFXSlot(int iSlotNum)
 }
 
 
-#ifndef _IMMERSION
-void FF_StopAll(void)
-{
-}
-#else
+#ifdef _IMMERSION
 int FF_StopAll(void)
 {
 	return 0;
 }
-#endif
 void FF_Stop(ffFX_e fffx)
 {
 
 }
-
 void FF_EnsurePlaying(ffFX_e fffx)
 {
 
 }
-#ifndef _IMMERSION
-qboolean FF_Play(ffHandle_t ff)
-{
-	return false;
-}
-#else
 void FF_Play(ffFX_e fffx)
 {
 
 }
+#else
+qboolean FF_StopAll(void)
+{
+	return false;
+}
+qboolean FF_Stop(ffFX_e fffx)
+{
+	return false;
+}
+
+qboolean FF_EnsurePlaying(ffFX_e fffx)
+{
+	return false;
+}
+qboolean FF_Play(ffHandle_t ff)
+{
+	return false;
+}
 #endif
+
 void FF_Shutdown(void)
 {
 

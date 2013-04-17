@@ -5,12 +5,18 @@
 #include "gl_main.h"
 
 CGLImpl GLImpl;
-
+/*
 D3DRECT msaa_4xaa[] = {
 	{   0, 0,  320, 720 },
 	{ 320, 0,  640, 720 },
 	{ 640, 0,  960, 720 },
 	{ 960, 0, 1280, 720 }
+};*/
+D3DRECT msaa_4xaa[] = {
+	{   0, 0,  256, 768 },
+	{ 256, 0,  512, 768 },
+	{ 512, 0,  768, 768 },
+	{ 768, 0, 1024, 768 }
 };
 
 static LPDIRECT3DTEXTURE9 pFrontBuffer;
@@ -25,8 +31,8 @@ void CGLImpl::Init()
 	// The device-creation presentation params with reasonable defaults
 	D3DPRESENT_PARAMETERS d3dpp =
 	{
-		1280,                // BackBufferWidth;
-		720,                // BackBufferHeight;
+		1024,                // BackBufferWidth;
+		768,                // BackBufferHeight;
 		D3DFMT_A8R8G8B8,    // BackBufferFormat;
 		1,                  // BackBufferCount;
 		D3DMULTISAMPLE_NONE,// MultiSampleType;
@@ -70,8 +76,10 @@ void CGLImpl::Init()
 	// init aa surface
 	if (use_aa) {
 		D3DSURFACE_PARAMETERS params = {0};
-		int tile_w = 1280/4;
-		int tile_h = 720;
+		int tile_w = 1024/4;
+		int tile_h = 768;
+//		int tile_w = 1280/4;
+//		int tile_h = 720;
 
 		// render target
 		params.Base = 0;
@@ -82,13 +90,15 @@ void CGLImpl::Init()
 		params.HierarchicalZBase = D3DHIZFUNC_GREATER_EQUAL;
 		device->CreateDepthStencilSurface( tile_w, tile_h, D3DFMT_D24S8, D3DMULTISAMPLE_4_SAMPLES, 0, 0, &pDepthStencilTarget, &params );
 
-		device->CreateTexture( 1280, 720, 1, 0,
+//		device->CreateTexture( 1280, 720, 1, 0,
+		device->CreateTexture( 1024, 768, 1, 0,
 			( D3DFORMAT )MAKESRGBFMT( D3DFMT_LE_X8R8G8B8 ),
 			D3DPOOL_DEFAULT,
 			&pFrontBuffer,
 			NULL );
 
-		device->CreateTexture( 1280, 720, 1, 0,
+//		device->CreateTexture( 1280, 720, 1, 0,
+		device->CreateTexture( 1024, 768, 1, 0,
 			( D3DFORMAT )MAKESRGBFMT( D3DFMT_X8R8G8B8 ),
 			D3DPOOL_DEFAULT,
 			&pResolveBuffer,
@@ -287,8 +297,10 @@ void XDKGlGetScreenSize(int * width, int * height) {
 	XGetVideoMode( &VideoMode );
 	//*width = VideoMode.dwDisplayWidth;
 	//*height = VideoMode.dwDisplayHeight;
-	*width = 1280;
-	*height = 720;
+//	*width = 1280;
+//	*height = 720;
+	*width = 1024;
+	*height = 768;
 }
 
 void xe_gl_error(const char * format, ...)

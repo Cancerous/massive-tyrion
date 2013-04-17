@@ -1629,7 +1629,7 @@ qboolean NAV_WaypointsTooFar( gentity_t *wp1, gentity_t *wp2 )
 		len = strlen( temp );
 		if ( (fatalErrorPointer-fatalErrorString)+len >= sizeof( fatalErrorString ) )
 		{
-			Com_Error( ERR_DROP, "%s%s%dTOO MANY FATAL NAV ERRORS!!!\n", fatalErrorString, temp, fatalErrors );
+			Com_Printf( "%s%s%dTOO MANY FATAL NAV ERRORS!!!\n", fatalErrorString, temp, fatalErrors );
 			return qtrue;
 		}
 		strcat( fatalErrorPointer, temp );
@@ -1796,7 +1796,7 @@ void NAV_CalculatePaths( const char *filename, int checksum )
 #ifndef FINAL_BUILD
 	if ( fatalErrors )
 	{
-		//Com_Error( ERR_DROP, "%s%d FATAL NAV ERRORS\n", fatalErrorString, fatalErrors );
+		//Com_Printf( "%s%d FATAL NAV ERRORS\n", fatalErrorString, fatalErrors );
 		gi.Printf( "%s%d FATAL NAV ERRORS\n", fatalErrorString, fatalErrors );
 	}
 #endif

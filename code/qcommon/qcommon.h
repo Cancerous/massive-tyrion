@@ -785,13 +785,18 @@ void	SCR_TempRawImage_CleanUp();
 
 
 #ifdef _XBOX // Crappy
+#undef abs
+#undef fabs
+#pragma function(abs)
 static inline int abs( int n ) {
 	return n < 0 ? -n : n;
 }
-
+//#pragma intrinsic(abs)
+#pragma function(fabs)
 static inline double fabs( double x ) {
 	return x < 0 ? -x : x;
 }
+//#pragma intrinsic(fabs)
 #endif
 
 #endif //__QCOMMON_H__

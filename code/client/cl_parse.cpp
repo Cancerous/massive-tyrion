@@ -102,7 +102,7 @@ void CL_ParsePacketEntities( msg_t *msg, clSnapshot_t *oldframe, clSnapshot_t *n
 		}
 
 		if ( msg->readcount > msg->cursize ) {
-			Com_Error (ERR_DROP,"CL_ParsePacketEntities: end of message");
+			Com_Printf("CL_ParsePacketEntities: end of message");
 		}
 
 		while ( oldnum < newnum ) {
@@ -372,13 +372,13 @@ void CL_ParseGamestate( msg_t *msg ) {
 
 			i = MSG_ReadShort( msg );
 			if ( i < 0 || i >= MAX_CONFIGSTRINGS ) {
-				Com_Error( ERR_DROP, "configstring > MAX_CONFIGSTRINGS" );
+				Com_Printf( "configstring > MAX_CONFIGSTRINGS" );
 			}
 			s = MSG_ReadString( msg );
 			len = strlen( s );
 
 			if ( len + 1 + cl.gameState.dataCount > MAX_GAMESTATE_CHARS ) {
-				Com_Error( ERR_DROP, "MAX_GAMESTATE_CHARS exceeded" );
+				Com_Printf( "MAX_GAMESTATE_CHARS exceeded" );
 			}
 
 			// append it to the gameState string buffer
@@ -391,13 +391,13 @@ void CL_ParseGamestate( msg_t *msg ) {
 		} else if ( cmd == svc_baseline ) {
 			newnum = MSG_ReadBits( msg, GENTITYNUM_BITS );
 			if ( newnum < 0 || newnum >= MAX_GENTITIES ) {
-				Com_Error( ERR_DROP, "Baseline number out of range: %i", newnum );
+				Com_Printf( "Baseline number out of range: %i", newnum );
 			}
 			memset (&nullstate, 0, sizeof(nullstate));
 			es = &cl.entityBaselines[ newnum ];
 			MSG_ReadDeltaEntity( msg, &nullstate, es, newnum );
 		} else {
-			Com_Error( ERR_DROP, "CL_ParseGamestate: bad command byte" );
+			Com_Printf( "CL_ParseGamestate: bad command byte" );
 		}
 	}
 
@@ -471,7 +471,7 @@ void CL_ParseServerMessage( msg_t *msg ) {
 	//
 	while ( 1 ) {
 		if ( msg->readcount > msg->cursize ) {
-			Com_Error (ERR_DROP,"CL_ParseServerMessage: read past end of server message");
+			Com_Printf("CL_ParseServerMessage: read past end of server message");
 			break;
 		}
 
@@ -493,7 +493,7 @@ void CL_ParseServerMessage( msg_t *msg ) {
 	// other commands
 		switch ( cmd ) {
 		default:
-			Com_Error (ERR_DROP,"CL_ParseServerMessage: Illegible server message\n");
+			Com_Printf("CL_ParseServerMessage: Illegible server message\n");
 			break;			
 		case svc_nop:
 			break;

@@ -218,7 +218,7 @@ static int SV_QsortEntityNumbers( const void *a, const void *b ) {
 	eb = (int *)b;
 
 	if ( *ea == *eb ) {
-		Com_Error( ERR_DROP, "SV_QsortEntityStates: duplicated entity" );
+		Com_Printf( "SV_QsortEntityStates: duplicated entity" );
 	}
 
 	if ( *ea < *eb ) {
@@ -424,7 +424,7 @@ static clientSnapshot_t *SV_BuildClientSnapshot( client_t *client ) {
 		svEntity_t					*svEnt;
 		clientNum = frame->ps.clientNum;
 		if ( clientNum < 0 || clientNum >= MAX_GENTITIES ) {
-			Com_Error( ERR_DROP, "SV_SvEntityForGentity: bad gEnt" );
+			Com_Printf( "SV_SvEntityForGentity: bad gEnt" );
 		}
 		svEnt = &sv.svEntities[ clientNum ];
 		// never send client's own entity, because it can

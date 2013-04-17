@@ -675,7 +675,7 @@ int CNavigator::AddRawPoint( vec3_t point, int flags, int radius )
 
 	if ( node == NULL )
 	{
-		Com_Error( ERR_DROP, "Error adding node!\n" );
+		Com_Printf( "Error adding node!\n" );
 		return -1;
 	}
 	

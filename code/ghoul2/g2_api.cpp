@@ -410,7 +410,7 @@ public:
 		if (mFreeIndecies.empty())
 		{
 			assert(0);
-			Com_Error(ERR_FATAL, "Out of ghoul2 info slots");
+			Com_Printf( "Out of ghoul2 info slots");
 
 		}
 		// gonna pull from the front, doing a 
@@ -1576,7 +1576,7 @@ bool G2_TestModelPointers(CGhoul2Info *ghlInfo) // returns true if the model is 
 				{
 					if (ghlInfo->currentModelSize!=ghlInfo->currentModel->mdxm->ofsEnd)
 					{
-						Com_Error(ERR_DROP, "Ghoul2 model was reloaded and has changed, map must be restarted.\n");
+						Com_Printf( "Ghoul2 model was reloaded and has changed, map must be restarted.\n");
 					}
 				}
 				ghlInfo->currentModelSize=ghlInfo->currentModel->mdxm->ofsEnd;
@@ -1590,7 +1590,7 @@ bool G2_TestModelPointers(CGhoul2Info *ghlInfo) // returns true if the model is 
 						{
 							if (ghlInfo->currentAnimModelSize!=ghlInfo->aHeader->ofsEnd)
 							{
-								Com_Error(ERR_DROP, "Ghoul2 model was reloaded and has changed, map must be restarted.\n");
+								Com_Printf( "Ghoul2 model was reloaded and has changed, map must be restarted.\n");
 							}
 						}
 						ghlInfo->currentAnimModelSize=ghlInfo->aHeader->ofsEnd;
@@ -1635,7 +1635,7 @@ bool G2_SetupModelPointers(CGhoul2Info *ghlInfo) // returns true if the model is
 				{
 					if (ghlInfo->currentModelSize!=ghlInfo->currentModel->mdxm->ofsEnd)
 					{
-						Com_Error(ERR_DROP, "Ghoul2 model was reloaded and has changed, map must be restarted.\n");
+						Com_Printf( "Ghoul2 model was reloaded and has changed, map must be restarted.\n");
 					}
 				}
 				ghlInfo->currentModelSize=ghlInfo->currentModel->mdxm->ofsEnd;
@@ -1653,7 +1653,7 @@ bool G2_SetupModelPointers(CGhoul2Info *ghlInfo) // returns true if the model is
 						{
 							if (ghlInfo->currentAnimModelSize!=ghlInfo->aHeader->ofsEnd)
 							{
-								Com_Error(ERR_DROP, "Ghoul2 model was reloaded and has changed, map must be restarted.\n");
+								Com_Printf( "Ghoul2 model was reloaded and has changed, map must be restarted.\n");
 							}
 						}
 						ghlInfo->currentAnimModelSize=ghlInfo->aHeader->ofsEnd;

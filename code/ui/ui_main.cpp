@@ -251,11 +251,12 @@ void Text_Paint(float x, float y, float scale, vec4_t color, const char *text, i
 	}
 	// kludge.. convert JK2 menu styles to SOF2 printstring ctrl codes...
 	//
+
 	int iStyleOR = 0;
 	switch (style)
 	{
-//	case  ITEM_TEXTSTYLE_NORMAL:			iStyleOR = 0;break;					// JK2 normal text
-//	case  ITEM_TEXTSTYLE_BLINK:				iStyleOR = STYLE_BLINK;break;		// JK2 fast blinking
+	case  ITEM_TEXTSTYLE_NORMAL:			iStyleOR = 0;break;					// JK2 normal text
+	case  ITEM_TEXTSTYLE_BLINK:				iStyleOR = STYLE_BLINK;break;		// JK2 fast blinking
 	case  ITEM_TEXTSTYLE_PULSE:				iStyleOR = STYLE_BLINK;break;		// JK2 slow pulsing
 	case  ITEM_TEXTSTYLE_SHADOWED:			iStyleOR = STYLE_DROPSHADOW;break;	// JK2 drop shadow ( need a color for this )
 	case  ITEM_TEXTSTYLE_OUTLINED:			iStyleOR = STYLE_DROPSHADOW;break;	// JK2 drop shadow ( need a color for this )
@@ -1125,7 +1126,7 @@ void UI_LoadMenus(const char *menuFile, qboolean reset)
 
 		if (len<1) 
 		{
-			Com_Error( ERR_FATAL, "%s", va("default menu file not found: ui/menus.txt, unable to continue!\n", menuFile ));
+			Com_Printf( "%s", va("default menu file not found: ui/menus.txt, unable to continue!\n", menuFile ));
 			return;
 		}
 	}
@@ -1613,7 +1614,7 @@ static void UI_Update(const char *name)
 		{
 			case 0:	// high quality
 
-				Cvar_SetValue( "ui_r_fullScreen", 1 );
+				Cvar_SetValue( "ui_r_fullScreen", 0 );
 				Cvar_SetValue( "ui_r_subdivisions", 4 );
 				Cvar_SetValue( "ui_r_lodbias", 0 );
 				Cvar_SetValue( "ui_r_colorbits", 32 );
@@ -1628,7 +1629,7 @@ static void UI_Update(const char *name)
 				break;
 
 			case 1: // normal 
-				Cvar_SetValue( "ui_r_fullScreen", 1 );
+				Cvar_SetValue( "ui_r_fullScreen", 0 );
 				Cvar_SetValue( "ui_r_subdivisions", 4 );
 				Cvar_SetValue( "ui_r_lodbias", 0 );
 				Cvar_SetValue( "ui_r_colorbits", 0 );
@@ -1644,7 +1645,7 @@ static void UI_Update(const char *name)
 
 			case 2: // fast
 
-				Cvar_SetValue( "ui_r_fullScreen", 1 );
+				Cvar_SetValue( "ui_r_fullScreen", 0 );
 				Cvar_SetValue( "ui_r_subdivisions", 12 );
 				Cvar_SetValue( "ui_r_lodbias", 1 );
 				Cvar_SetValue( "ui_r_colorbits", 0 );
@@ -1660,7 +1661,7 @@ static void UI_Update(const char *name)
 
 			case 3: // fastest
 
-				Cvar_SetValue( "ui_r_fullScreen", 1 );
+				Cvar_SetValue( "ui_r_fullScreen", 0 );
 				Cvar_SetValue( "ui_r_subdivisions", 20 );
 				Cvar_SetValue( "ui_r_lodbias", 2 );
 				Cvar_SetValue( "ui_r_colorbits", 16 );

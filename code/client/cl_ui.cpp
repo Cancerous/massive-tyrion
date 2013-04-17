@@ -364,7 +364,7 @@ int CL_UISystemCalls( int *args )
 	switch( args[0] ) 
 	{
 	case UI_ERROR:
-		Com_Error( ERR_DROP, "%s", VMA(1) );
+		Com_Printf( "%s", VMA(1) );
 		return 0;
 
 	case UI_CVAR_REGISTER:
@@ -490,7 +490,7 @@ int CL_UISystemCalls( int *args )
 
 
 	default:
-		Com_Error( ERR_DROP, "Bad UI system trap: %i", args[0] );
+		Com_Printf( "Bad UI system trap: %i", args[0] );
 
 	}
 

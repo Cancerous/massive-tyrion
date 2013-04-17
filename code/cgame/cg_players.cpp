@@ -162,7 +162,7 @@ static const char *GetCustomSound_VariantCapped(const char *ppsTable[], int iEnt
 
 	if (iVariantCap || bForceVariant1)
 	{
-		char *p = (char*)strchr(ppsTable[iEntryNum],'.');
+		char *p = (char *)strchr(ppsTable[iEntryNum],'.');
 		if (p && p-2 > ppsTable[iEntryNum] && isdigit(p[-1]) && !isdigit(p[-2]))
 		{
 			int iThisVariant = p[-1]-'0';
@@ -4595,7 +4595,7 @@ Ghoul2 Insert End
 	}
 	else
 	{
-		gi.trace( &trace, cent->lerpOrigin, NULL, NULL, cent->gent->client->renderInfo.muzzlePoint, cent->currentState.number, CONTENTS_SOLID, (EG2_Collision)0, 0 );
+		gi.trace( &trace, cent->lerpOrigin, NULL, NULL, cent->gent->client->renderInfo.muzzlePoint, cent->currentState.number, CONTENTS_SOLID, (EG2_Collision)0, 0 ); //G2_NOCOLLIDE?
 	}
 
 	if ( trace.fraction < 1.0f )

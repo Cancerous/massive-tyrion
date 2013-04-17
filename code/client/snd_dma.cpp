@@ -700,14 +700,14 @@ sfx_t *S_FindName( const char *name ) {
 	sfx_t	*sfx;
 
 	if (!name) {
-		Com_Error (ERR_FATAL, "S_FindName: NULL\n");
+		Com_Printf( "S_FindName: NULL\n");
 	}
 	if (!name[0]) {
-		Com_Error (ERR_FATAL, "S_FindName: empty name\n");
+		Com_Printf( "S_FindName: empty name\n");
 	}
 
 	if (strlen(name) >= MAX_QPATH) {
-		Com_Error (ERR_FATAL, "Sound name too long: %s", name);
+		Com_Printf( "Sound name too long: %s", name);
 	}
 
 	char sSoundNameNoExt[MAX_QPATH];
@@ -754,7 +754,7 @@ sfx_t *S_FindName( const char *name ) {
 			//	events, so current MAX_SFX limit should do, or only need a small boost...	-ste
 			//
 
-			Com_Error (ERR_FATAL, "S_FindName: out of sfx_t");
+			Com_Printf( "S_FindName: out of sfx_t");
 		}
 	}
 	else
@@ -988,7 +988,7 @@ channel_t *S_PickChannel(int entnum, int entchannel)
 		return S_OpenALPickChannel(entnum, entchannel);
 
 	if ( entchannel<0 ) {
-		Com_Error (ERR_DROP, "S_PickChannel: entchannel<0");
+		Com_Printf( "S_PickChannel: entchannel<0");
 	}
 
 	// Check for replacement sound, or find the best one to replace
@@ -1062,7 +1062,7 @@ channel_t *S_OpenALPickChannel(int entnum, int entchannel)
 
 	if ( entchannel < 0 ) 
 	{
-		Com_Error (ERR_DROP, "S_PickChannel: entchannel<0");
+		Com_Printf( "S_PickChannel: entchannel<0");
 	}
 
 	// Check for replacement sound, or find the best one to replace
@@ -1319,10 +1319,10 @@ void S_StartAmbientSound( const vec3_t origin, int entityNum, unsigned char volu
 		return;
 	}
 	if ( !origin && ( entityNum < 0 || entityNum > MAX_GENTITIES ) )
-		Com_Error( ERR_DROP, "S_StartAmbientSound: bad entitynum %i", entityNum );
+		Com_Printf( "S_StartAmbientSound: bad entitynum %i", entityNum );
 
 	if ( sfxHandle < 0 || sfxHandle >= s_numSfx )
-		Com_Error( ERR_DROP, "S_StartAmbientSound: handle %i out of range", sfxHandle );
+		Com_Printf( "S_StartAmbientSound: handle %i out of range", sfxHandle );
 
 	sfx = &s_knownSfx[ sfxHandle ];
 	if (sfx->bInMemory == qfalse){
@@ -1391,11 +1391,11 @@ void S_StartSound(const vec3_t origin, int entityNum, int entchannel, sfxHandle_
 	}
 
 	if ( !origin && ( entityNum < 0 || entityNum > MAX_GENTITIES ) ) {
-		Com_Error( ERR_DROP, "S_StartSound: bad entitynum %i", entityNum );
+		Com_Printf( "S_StartSound: bad entitynum %i", entityNum );
 	}
 
 	if ( sfxHandle < 0 || sfxHandle >= s_numSfx ) {
-		Com_Error( ERR_DROP, "S_StartSound: handle %i out of range", sfxHandle );
+		Com_Printf( "S_StartSound: handle %i out of range", sfxHandle );
 	}
 
 	sfx = &s_knownSfx[ sfxHandle ];
@@ -1500,7 +1500,7 @@ void S_StartLocalSound( sfxHandle_t sfxHandle, int channelNum ) {
 	}
 
 	if ( sfxHandle < 0 || sfxHandle >= s_numSfx ) {
-		Com_Error( ERR_DROP, "S_StartLocalSound: handle %i out of range", sfxHandle );
+		Com_Printf( "S_StartLocalSound: handle %i out of range", sfxHandle );
 	}
 
 	S_StartSound (NULL, listener_number, channelNum, sfxHandle );
@@ -1520,7 +1520,7 @@ void S_StartLocalLoopingSound( sfxHandle_t sfxHandle) {
 	}
 
 	if ( sfxHandle < 0 || sfxHandle >= s_numSfx ) {
-		Com_Error( ERR_DROP, "S_StartLocalLoopingSound: handle %i out of range", sfxHandle );
+		Com_Printf( "S_StartLocalLoopingSound: handle %i out of range", sfxHandle );
 	}
 
 	S_AddLoopingSound( listener_number, nullVec, nullVec, sfxHandle );
@@ -1597,7 +1597,7 @@ void S_ClearSoundBuffer( void ) {
 void S_CIN_StopSound(sfxHandle_t sfxHandle)
 {
 	if ( sfxHandle < 0 || sfxHandle >= s_numSfx ) {
-		Com_Error( ERR_DROP, "S_CIN_StopSound: handle %i out of range", sfxHandle );
+		Com_Printf( "S_CIN_StopSound: handle %i out of range", sfxHandle );
 	}
 
 	sfx_t *sfx = &s_knownSfx[ sfxHandle ];
@@ -1734,7 +1734,7 @@ void S_AddLoopingSound( int entityNum, const vec3_t origin, const vec3_t velocit
 	}
 
 	if ( sfxHandle < 0 || sfxHandle >= s_numSfx ) {
-		Com_Error( ERR_DROP, "S_AddLoopingSound: handle %i out of range", sfxHandle );
+		Com_Printf( "S_AddLoopingSound: handle %i out of range", sfxHandle );
 	}
 
 	sfx = &s_knownSfx[ sfxHandle ];
@@ -1744,7 +1744,7 @@ void S_AddLoopingSound( int entityNum, const vec3_t origin, const vec3_t velocit
 	SND_TouchSFX(sfx);
 
 	if ( !sfx->iSoundLengthInSamples ) {
-		Com_Error( ERR_DROP, "%s has length 0", sfx->sSoundName );
+		Com_Printf( "%s has length 0", sfx->sSoundName );
 	}
 	assert(!sfx->pMP3StreamHeader);
 	VectorCopy( origin, loopSounds[numLoopSounds].origin );
@@ -1779,7 +1779,7 @@ void S_AddAmbientLoopingSound( const vec3_t origin, unsigned char volume, sfxHan
 	}
 
 	if ( sfxHandle < 0 || sfxHandle >= s_numSfx ) {
-		Com_Error( ERR_DROP, "S_StartSound: handle %i out of range", sfxHandle );
+		Com_Printf( "S_StartSound: handle %i out of range", sfxHandle );
 	}
 
 	sfx = &s_knownSfx[ sfxHandle ];
@@ -1789,7 +1789,7 @@ void S_AddAmbientLoopingSound( const vec3_t origin, unsigned char volume, sfxHan
 	SND_TouchSFX(sfx);
 
 	if ( !sfx->iSoundLengthInSamples ) {
-		Com_Error( ERR_DROP, "%s has length 0", sfx->sSoundName );
+		Com_Printf( "%s has length 0", sfx->sSoundName );
 	}
 	VectorCopy( origin, loopSounds[numLoopSounds].origin );
 	loopSounds[numLoopSounds].sfx = sfx;
@@ -1863,7 +1863,7 @@ void S_AddLoopSounds (void)
 		//
 		if (loop->sfx->pMP3StreamHeader)
 		{				
-			Com_Error( ERR_DROP, "S_AddLoopSounds(): Cannot use streamed MP3 files here for random access (%s)\n",loop->sfx->sSoundName );
+			Com_Printf( "S_AddLoopSounds(): Cannot use streamed MP3 files here for random access (%s)\n",loop->sfx->sSoundName );
 		}
 		else
 		{
@@ -2102,7 +2102,7 @@ void S_UpdateEntityPosition( int entityNum, const vec3_t origin )
 	int i;
 
 	if ( entityNum < 0 || entityNum > MAX_GENTITIES ) {
-		Com_Error( ERR_DROP, "S_UpdateEntityPosition: bad entitynum %i", entityNum );
+		Com_Printf( "S_UpdateEntityPosition: bad entitynum %i", entityNum );
 	}
 
 	if (s_UseOpenAL)

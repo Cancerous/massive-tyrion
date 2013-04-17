@@ -33,7 +33,7 @@ SV_SetConfigstring
 */
 void SV_SetConfigstring (int index, const char *val) {
 	if ( index < 0 || index >= MAX_CONFIGSTRINGS ) {
-		Com_Error (ERR_DROP, "SV_SetConfigstring: bad index %i\n", index);
+		Com_Printf( "SV_SetConfigstring: bad index %i\n", index);
 	}
 
 	if ( !val ) {
@@ -66,10 +66,10 @@ SV_GetConfigstring
 */
 void SV_GetConfigstring( int index, char *buffer, int bufferSize ) {
 	if ( bufferSize < 1 ) {
-		Com_Error( ERR_DROP, "SV_GetConfigstring: bufferSize == %i", bufferSize );
+		Com_Printf( "SV_GetConfigstring: bufferSize == %i", bufferSize );
 	}
 	if ( index < 0 || index >= MAX_CONFIGSTRINGS ) {
-		Com_Error (ERR_DROP, "SV_GetConfigstring: bad index %i\n", index);
+		Com_Printf( "SV_GetConfigstring: bad index %i\n", index);
 	}
 	if ( !sv.configstrings[index] ) {
 		buffer[0] = 0;
@@ -88,7 +88,7 @@ SV_SetUserinfo
 */
 void SV_SetUserinfo( int index, const char *val ) {
 	if ( index < 0 || index >= 1 ) {
-		Com_Error (ERR_DROP, "SV_SetUserinfo: bad index %i\n", index);
+		Com_Printf( "SV_SetUserinfo: bad index %i\n", index);
 	}
 
 	if ( !val ) {
@@ -108,10 +108,10 @@ SV_GetUserinfo
 */
 void SV_GetUserinfo( int index, char *buffer, int bufferSize ) {
 	if ( bufferSize < 1 ) {
-		Com_Error( ERR_DROP, "SV_GetUserinfo: bufferSize == %i", bufferSize );
+		Com_Printf( "SV_GetUserinfo: bufferSize == %i", bufferSize );
 	}
 	if ( index < 0 || index >= 1 ) {
-		Com_Error (ERR_DROP, "SV_GetUserinfo: bad index %i\n", index);
+		Com_Printf( "SV_GetUserinfo: bad index %i\n", index);
 	}
 	Q_strncpyz( buffer, svs.clients[ index ].userinfo, bufferSize );
 }
@@ -159,7 +159,7 @@ Called when a game is about to begin
 */
 void SV_Startup( void ) {
 	if ( svs.initialized ) {
-		Com_Error( ERR_FATAL, "SV_Startup: svs.initialized" );
+		Com_Printf( "SV_Startup: svs.initialized" );
 	}
 
 	const int iSize = sizeof(client_t) * 1;

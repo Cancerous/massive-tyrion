@@ -211,7 +211,7 @@ cvar_t *Cvar_Get( const char *var_name, const char *var_value, int flags ) {
 	cvar_t	*var;
 
     if ( !var_name || ! var_value ) {
-		Com_Error( ERR_FATAL, "Cvar_Get: NULL parameter" );
+		Com_Printf( "Cvar_Get: NULL parameter" );
     }
 
 	if ( !Cvar_ValidateString( var_name ) ) {
@@ -275,7 +275,7 @@ cvar_t *Cvar_Get( const char *var_name, const char *var_value, int flags ) {
 	// allocate a new cvar
 	//
 	if ( cvar_numIndexes == MAX_CVARS ) {
-		Com_Error( ERR_FATAL, "MAX_CVARS" );
+		Com_Printf( "MAX_CVARS" );
 	}
 	var = &cvar_indexes[cvar_numIndexes];
 	cvar_numIndexes++;
@@ -839,7 +839,7 @@ void	Cvar_Update( vmCvar_t *vmCvar ) {
 	cvar_t	*cv;
 
 	if ( (unsigned)vmCvar->handle >= cvar_numIndexes ) {
-		Com_Error( ERR_DROP, "Cvar_Update: handle out of range" );
+		Com_Printf( "Cvar_Update: handle out of range" );
 	}
 
 	cv = cvar_indexes + vmCvar->handle;

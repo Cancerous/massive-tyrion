@@ -537,7 +537,7 @@ void CG_Error( const char *msg, ... ) {
 	vsprintf (text, msg, argptr);
 	va_end (argptr);
 
-	cgi_Error( text );
+	cgi_Printf( text );
 }
 
 
@@ -1756,7 +1756,7 @@ void CG_WriteTheEvilCGHackStuff(void)
 }
 void CG_ReadTheEvilCGHackStuff(void)
 {
-	gi.ReadFromSaveGame('FPSL', (void *)&gi_cg_forcepowerSelect, sizeof(gi_cg_forcepowerSelect), 0);
+	gi.ReadFromSaveGame('FPSL', (void *)&gi_cg_forcepowerSelect, sizeof(gi_cg_forcepowerSelect), 0); //NULL
 	gi.ReadFromSaveGame('IVSL', (void *)&gi_cg_inventorySelect,  sizeof(gi_cg_inventorySelect), 0);
 	gbUseTheseValuesFromLoadSave = qtrue;
 }
@@ -2445,17 +2445,20 @@ void CG_LoadMenus(const char *menuFile)
 	len = cgi_FS_FOpenFile( menuFile, &f, FS_READ );
 	if ( !f ) 
 	{
-		cgi_Error( va( S_COLOR_YELLOW "menu file not found: %s, using default\n", menuFile ) );
+		//cgi_Error( va( S_COLOR_YELLOW "menu file not found: %s, using default\n", menuFile ) );	// what. this would not run
+		cgi_Printf( va( S_COLOR_YELLOW "menu file not found: %s, using default\n", menuFile ) );	// the rest at all.. --eez
 		len = cgi_FS_FOpenFile( "ui/jk2hud.txt", &f, FS_READ );
 		if (!f) 
 		{
-			cgi_Error( va( S_COLOR_RED "default menu file not found: ui/hud.txt, unable to continue!\n", menuFile ) );
+			//cgi_Error( va( S_COLOR_RED "default menu file not found: ui/hud.txt, unable to continue!\n", menuFile ) );
+			cgi_Printf( va( S_COLOR_RED "default menu file not found: ui/hud.txt, unable to continue!\n", menuFile ) );
 		}
 	}
 
 	if ( len >= MAX_MENUDEFFILE ) 
 	{
-		cgi_Error( va( S_COLOR_RED "menu file too large: %s is %i, max allowed is %i", menuFile, len, MAX_MENUDEFFILE ) );
+		//cgi_Error( va( S_COLOR_RED "menu file too large: %s is %i, max allowed is %i", menuFile, len, MAX_MENUDEFFILE ) );
+		cgi_Printf( va( S_COLOR_RED "menu file too large: %s is %i, max allowed is %i", menuFile, len, MAX_MENUDEFFILE ) );
 		cgi_FS_FCloseFile( f );
 		return;
 	}
